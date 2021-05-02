@@ -1,0 +1,41 @@
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
+
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        int[] answer = {};
+        List<Integer> result = new ArrayList<Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
+        
+        
+        int day = 0; // 날짜 구하기
+        for(int i=progresses.length-1; i>=0; i--){ // 스택에 역순 저장
+            day = (100 -  progresses[i]) / speeds[i];
+            if((100 - progresses[i]) % speeds[i] > 0) day+=1;
+            
+            stack.add(day); // 스택에 저장
+        }
+        System.out.println(stack);
+        
+        int count = 0; // 작업 개수
+        while(!stack.isEmpty()){
+            int now = stack.pop(); // 현재 기능 배포 가능 일수
+            count=1;
+            
+            // 다음 기능 배포 가능 일 < 현재 가능 일 -> 같이 배포
+            while(!stack.isEmpty() && stack.peek() <= now){
+                count++;
+                stack.pop();
+            }result.add(count);
+        }
+        
+        // 리스트 -> 배열
+        answer = new int[result.size()];
+        for(int i=0; i<result.size(); i++){
+            answer[i] = result.get(i);
+        }
+   
+        return answer;
+    }
+}
