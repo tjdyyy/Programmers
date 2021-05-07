@@ -1,0 +1,43 @@
+import java.util.Queue;
+import java.util.ArrayList;
+
+class Task{
+    int idx; // 인덱스
+    int pr; // 우선 순위
+    Task(int idx, int pr){
+        this.idx=idx;
+        this.pr=pr;
+    }
+}
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 1; // 최소 1
+        
+        ArrayList<Task> printer = new ArrayList<Task>();
+        
+        for(int i=0; i<priorities.length; i++){
+            printer.add(new Task(i, priorities[i]));
+        }
+        
+        boolean findP = false;
+        while(true){
+            findP = false;
+            for(int j=1; j<printer.size(); j++){
+                if(printer.get(0).pr < printer.get(j).pr){
+                    printer.add(new Task(printer.get(0).idx, printer.get(0).pr));
+                    printer.remove(0);
+                    findP = true;
+                    break;
+                }
+            }
+            if (!findP){
+                if(printer.get(0).idx == location) return answer;
+                else {
+                    printer.remove(0);
+                    answer++;
+                }
+            }
+        }
+    }
+}
