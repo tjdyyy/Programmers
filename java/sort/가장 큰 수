@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Solution {
+    public String solution(int[] numbers) {
+        String answer = "";
+        
+        // 정수 배열 -> 문자열 배열
+        String[] str = new String[numbers.length];
+        for(int i=0; i<numbers.length; i++){
+            str[i] = String.valueOf(numbers[i]);
+        }
+        
+        // 내림차순 비교
+        Arrays.sort(str, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return (s2+s1).compareTo(s1+s2); 
+            }
+        });
+        
+        // 문자열 합치기
+        if(str[0].equals("0")) return "0"; // 첫 자리 0이면 0리턴 (000->0)
+        
+        for(String a: str){
+            answer+=a;
+        }
+        
+        return answer;
+    }
+}
