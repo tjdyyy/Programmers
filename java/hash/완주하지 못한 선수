@@ -1,0 +1,32 @@
+import java.util.HashMap;
+import java.util.Arrays;
+import java.util.*;
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        
+        Arrays.sort(participant);
+        Arrays.sort(completion);
+        
+        HashMap<Integer, String> map = new HashMap<Integer, String>(participant.length);
+        
+        
+        for(int i=0; i<participant.length; i++){
+            map.put(i, participant[i]);
+        }
+        
+        for(int k : map.keySet()){
+            if(k==map.size()-1){ // 맵의 마지막 값이 홀로 남은 경우
+                answer = map.get(k);
+                break;
+            }
+            if(! map.get(k).equals(completion[k])){ // 정렬한 배열의 값이 서로 다른 순간
+                answer = map.get(k);
+                break;
+            }
+        }
+        
+        return answer;
+    }
+}
