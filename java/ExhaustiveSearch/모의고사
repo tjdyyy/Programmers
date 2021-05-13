@@ -1,0 +1,36 @@
+import java.util.List;
+import java.util.ArrayList;
+
+class Solution {
+    public Integer[] solution(int[] answers) {
+        Integer[] answer = {};
+        int[] p1 = {1, 2, 3, 4, 5}; // 1번 수포자
+        int[] p2 = {2, 1, 2, 3, 2, 4, 2, 5}; // 2번
+        int[] p3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}; // 3번
+        int[] s = {0, 0, 0}; // 1, 2, 3의 점수 배열
+        
+        // 점수 계산
+        for(int i=0; i<answers.length; i++){
+            if(p1[i%5] == answers[i]) s[0]++;
+            if(p2[i%8] == answers[i]) s[1]++;
+            if(p3[i%10] == answers[i]) s[2]++;
+        }
+        
+        // 최고 점수 계산
+        int max = 0;
+        for(int j=0; j<3; j++){
+            if(max <= s[j]) max = s[j];
+        }
+        
+        // 리턴 배열 구성
+        if (max == 0) return answer; // 최고점이 0이면 빈 배열 리턴
+        else { // 최고점과 같은 점수의 수포자를 배열에 저장
+            List<Integer> a = new ArrayList<Integer>();
+            for(int k=0; k<3; k++){
+                if(max == s[k]) a.add(k+1);
+            }
+            answer = a.toArray(new Integer[a.size()]);
+        }
+        return answer;
+    }
+}
