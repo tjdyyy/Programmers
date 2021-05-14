@@ -1,0 +1,36 @@
+class Solution {
+    public int solution(int n, int[] lost, int[] reserve) {
+        int answer = n - lost.length; // 현재 체육복 있는 학생 수
+        //int j=0;
+        int count=0; // 체육복 빌릴 수 있는 학생 수
+        for(int i=0; i<lost.length; i++){
+            for(int j=0; j<reserve.length; j++){
+                if(lost[i]!=0&&reserve[j]!=0){
+                    if(lost[i] == reserve[j]){
+                        // lost == reserve이면 lost에 속해 answer에 포함 안 됐음
+                        // 자신이 체육복 입을 것. 없다고 생각해야 함. 
+                        count++;
+                        lost[i]=0;
+                        reserve[j]=0;
+                    }
+                }
+            }
+        }
+        
+        //int j=0;
+        for(int i=0; i<lost.length; i++){
+            for(int j=0; j<reserve.length; j++){
+                if(lost[i] != 0 && reserve[j] != 0){ // lost, reserve 값이 0이 아니고
+                    if(Math.abs(lost[i]-reserve[j]) == 1){
+                        // lost의 앞번호 또는 뒷번호가 reserve에 있는지
+                        count++;
+                        reserve[j]=0;
+                        break;
+                    }
+                }
+            }
+        }
+        answer+=count;
+        return answer;
+    }
+}
