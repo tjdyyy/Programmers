@@ -1,0 +1,28 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int solution(String[][] clothes) {
+        int answer = 1; // 곱셈을 위함
+        HashMap<String, Integer> hm = new HashMap<String, Integer>();
+        
+        // 해시맵에 저장
+        String key="";
+        for(int i=0; i<clothes.length; i++){
+            key = clothes[i][1];
+            if(hm.containsKey(key)){ // 키가 이미 있으면 값 +1
+                hm.put(key, hm.get(key)+1);
+            } else { // 키 없으면 추가
+                hm.put(key, 1);
+            }
+        }
+        
+        // 해당 종류의 의상을 안 입을 경우 더해서 answer에 곱함
+        for (String k : hm.keySet()){
+            answer *= hm.get(k)+1;
+        }
+        
+        // 어떤 종류의 의상도 안 입는 경우 빼기
+        return answer-1;
+    }
+}
