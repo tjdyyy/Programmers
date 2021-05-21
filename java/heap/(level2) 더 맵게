@@ -1,0 +1,28 @@
+import java.util.PriorityQueue;
+
+class Solution {
+    public int solution(int[] scoville, int K) {
+        int answer = 0;
+        PriorityQueue<Integer> food = new PriorityQueue<>(); // 우선순위큐 사용
+        
+        for(int a : scoville){
+            food.offer(a);
+        }
+        
+        while(true){
+            if(food.peek() < K){ // 스코빌 지수 이하
+                if(food.size() == 1) return -1; // 모든 음식 k이상 만들 수 없으면 -1 리턴
+                
+                int first = food.poll();
+                int second = food.poll();
+                int mix = first + (second*2);
+                food.offer(mix);
+                answer++;
+            } else break; // K이상이면 반복 종료
+        }
+        
+        
+        
+        return answer;
+    }
+}
