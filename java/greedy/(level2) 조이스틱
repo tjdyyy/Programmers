@@ -1,0 +1,34 @@
+class Solution {
+    public int solution(String name) {
+        int answer = 0;
+        char[] nameArr = name.toCharArray();
+        int len = nameArr.length;
+        int max = len - 1;
+        int min = max;
+              
+        for(int i=0; i<len; i++){
+            
+            // 알파벳 완성 횟수
+            int character = (int)nameArr[i] - 65;
+            if(character >= 13) character -= 26;
+
+            answer += Math.abs(character);
+            
+            // 알파벳 이동 횟수
+            int right = i;
+            int back = i;
+            int next = i + 1;
+            while(next < len && nameArr[next] == 'A'){
+                next++;
+            }
+            
+            int opposite = max - next + 1;
+            
+            min = Math.min(min, (right + opposite) + Math.min(back, opposite));
+        }
+        
+        answer += min;
+        
+        return answer;
+    }
+}
