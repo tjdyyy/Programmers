@@ -1,0 +1,25 @@
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        int sum = (brown+4)/2;
+        int mul = yellow + brown;
+        
+        for(int i=3; i <= mul/3; i++){ 
+            // 가로세로 최소 3이상, 3*가로 mul 이하
+            int x = i; 
+            int y = sum - x;
+            if(y>=3 && x*y == mul){ 
+                if(x < y){ // x >= y
+                    int temp = y;
+                    y = x;
+                    x = temp;
+                }
+                answer[0] = x;
+                answer[1] = y;
+                break;
+            }
+        }
+
+        return answer;
+    }
+}
