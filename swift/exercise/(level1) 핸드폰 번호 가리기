@@ -1,0 +1,21 @@
+func solution(_ phone_number:String) -> String {
+    var phone_str = ""
+    let len = phone_number.count - 4
+    
+    if( len == 0 ){ // 4자리뿐인 번호는 번호 전부 리턴
+        return phone_number
+    }
+    else {
+        for x in 1...len{
+            phone_str += "*"
+        }
+    
+        // *처리 다음 인덱스
+        let idx: String.Index = phone_number.index(phone_number.startIndex, offsetBy:len)
+        // idx 부터 끝까지 잘라서 phone_str에 추가
+        phone_str += String(phone_number[idx...])
+    
+        return phone_str
+    }
+    
+}
