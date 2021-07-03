@@ -1,0 +1,17 @@
+func solution(_ arr:[Int], _ divisor:Int) -> [Int] {
+    var answer:[Int] = []
+    
+    for x in 0..<arr.count{
+        if (arr[x] % divisor == 0){ // 나눠지면
+            answer.append(arr[x]) // 배열에 추가
+        }
+    }
+    
+    if (answer.count == 0){ // 나눠지는 원소가 없으면 
+        answer.append(-1) // -1 추가
+    }
+    
+    answer.sort() // 오름차순 정렬
+    
+    return answer
+}
