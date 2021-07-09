@@ -1,0 +1,24 @@
+def solution(n, arr1, arr2):
+    answer = []
+    
+    #or 연산 후 2진수 바꾸기
+    
+    new_arr = [0]*n
+    for i in range(n): # or 연산
+        new_arr[i] = arr1[i] | arr2[i] 
+    
+    for i in range(n): # 2진수로 변환
+        a = format(new_arr[i], 'b')
+        if(len(a) < n): # n자리 아니면 앞에 0추가
+            a = "0" * (n-len(a)) + a
+
+        str=""
+        for j in range(n): # 1 -> "#", 0 -> " "
+            if(a[j] == "1"):
+                str += "#"
+            elif(a[j] == "0"):
+                str += " "
+        
+        answer.append(str)
+    
+    return answer
