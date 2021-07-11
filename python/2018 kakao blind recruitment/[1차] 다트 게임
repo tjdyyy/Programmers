@@ -5,8 +5,6 @@ def solution(dartResult):
     idx = 0
     count = 0
     for i in range(0,length):
-        print(dartResult[i:i+2])
-
         if dartResult[i] in num:
             if dartResult[i-1] == '1' and dartResult[i] == '0':
                 continue
