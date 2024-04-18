@@ -1,0 +1,77 @@
+"""
+DFS사용
+(for) 하나 끊고 -> 양쪽 끊은 점에서 시작하는 트리에 달린 노드 개수 구하기 -> 차이의 최소값 갱신
+
+"""
+
+
+cntA = 0
+cntB = 0
+visited = []
+
+def dfs(node, w, cnt, visited):
+    
+    for e in w:
+        if node in e: # 현재 노드 넘버가 있을 때
+            # r : 연결 노드
+            if node == e[0]: 
+                r = e[1]
+            else: r = e[0]
+
+            
+            if not visited[node][r]: # 연결 노드는 방문 안 했을 때
+                visited[node][r] = True
+                visited[r][node] = True
+                cnt += 1
+
+                cnt = dfs(r, w, cnt, visited)
+                visited[node][r] = False
+                visited[r][node] = False
+    return cnt
+    
+
+def solution(n, wires):
+    answer = n-1 # 가능한 최대값
+    global visited
+    
+    
+    for i in range(n-1): # wires의 길이는 n-1
+        visited = [[False] * (n+1) for _ in range(n+1)]
+        
+        treeA, treeB = wires[i]         # [i] 의 왼쪽, 오른쪽 노드
+        print(i, ":", treeA, treeB)
+        visited[treeA][treeB] = True
+        visited[treeB][treeA] = True
+        
+        
+        newW = wires[:i] + wires[i+1:]  # [i] 뺀 새 전선 리스트 
+        
+        cntA = dfs(treeA, newW, 1, visited)
+        cntB = dfs(treeB, newW, 1, visited)
+
+        
+        answer = min(answer, abs(cntA - cntB))
+        
+    
+    return(answer)
+
+
+
+# 어떤 천재의 풀이. 어떻게 이렇게 간결히 풀지
+'''
+def solution(n, wires):
+    answer = n 
+
+    for sub in (wires[:i]+wires[i+1:] for i in range(len(wires))): # for - 순서대로 하나씩 뺀 리스트
+        print(sub)
+        s = set(sub[0])
+        [s.update(v) for _ in sub for v in sub if set(v) & s]    
+        # <sub리스트 개수만큼 반복, 집합에 v 추가> sub리스트의 반복 요소 v, v와 s에 교집합있다면 ~
+        print()
+        # 집합자료형.update : 집합에 여러 개 데이터 추가
+        # 집합 연산자 & : 교집합 연산
+        answer = min(answer, abs(2 * len(s) - n)) # 2는 왜 곱해..= len(s) - 
+        # abs(a) : a의 절댓값
+
+    return answer
+'''
