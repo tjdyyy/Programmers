@@ -1,0 +1,23 @@
+'''
+가로 길이 < 세로 -> 가로 세로 바꿔주기
+--> 가로 세로 각각 가장 큰 것끼리 곱하기
+
+'''
+
+def solution(sizes):
+    answer = 0
+    
+    for i in range(len(sizes)):
+        if sizes[i][0] < sizes[i][1]:  
+            sizes[i].reverse()
+    
+    maxw = 0
+    maxh = 0
+    
+    for w, h in sizes:
+        maxw = max(maxw, w)
+        maxh = max(maxh, h)
+    
+    answer = maxw * maxh
+
+    return answer
