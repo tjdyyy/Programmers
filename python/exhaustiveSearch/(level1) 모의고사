@@ -1,0 +1,63 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/42840
+
+def solution(answers):
+    answer = []
+    
+    A = [[1, 2, 3, 4, 5],
+         [2, 1, 2, 3, 2, 4, 2, 5],
+         [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]]
+    
+    cnt = [0, 0, 0]         # 1,2,3번이 맞은 개수
+    
+    for i in range(3):
+        n = len(answers)
+        for j in range(len(answers)):
+            n = len(A[i])
+            if answers[j] == A[i][j%n]:
+                cnt[i] += 1
+                
+    maxa = max(cnt)     
+    while maxa == max(cnt):
+        i = cnt.index(maxa)
+        answer.append(i+1)
+        cnt[i] = -1 
+    answer.sort()
+    
+    return answer
+
+
+
+'''
+베스트 답변..
+배운점: 1. 수포자는 입력받는 것도 아니고 큰 수도 아님. 
+          -> for문 굳이 한 번 더 만들 필요 없이 바로 케이스 나눠 코딩 
+      2. enumerate() : 인덱스와 값을 모두 가져 오고 싶을 때
+
+def solution(answers):
+    pattern1 = [1,2,3,4,5]
+    pattern2 = [2,1,2,3,2,4,2,5]
+    pattern3 = [3,3,1,1,2,2,4,4,5,5]
+    score = [0, 0, 0]
+    result = []
+
+    for idx, answer in enumerate(answers):
+        if answer == pattern1[idx%len(pattern1)]:
+            score[0] += 1
+        if answer == pattern2[idx%len(pattern2)]:
+            score[1] += 1
+        if answer == pattern3[idx%len(pattern3)]:
+            score[2] += 1
+
+    for idx, s in enumerate(score):
+        if s == max(score):
+            result.append(idx+1)
+
+    return result
+'''
+
+'''
+AI 피드백이 리스트 컴프리헨션 사용하면 간결하게 쓸 수 있댔는데..!! 
+이렇게 쓰라는 뜻이었음
+
+return [i + 1 for i, v in enumerate(s) if v == max(cnt)]
+'''
